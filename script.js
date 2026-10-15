@@ -1475,14 +1475,14 @@ function renderItemCards(filtered, grid, emptyMessage) {
       "roam-dire-hit":"dire-hit"
     };
     const specialSlug = specialIconSlugs[item.id];
-    const iconSource = specialSlug === "spell-retribution"
-      ? "https://mlbbhub.com/images/spells/retribution.png"
+    const iconSource = item.id === "retribution"
+      ? new URL("assets/retribution.svg", window.location.href).href
       : specialSlug
         ? "https://mlbbhub.com/images/items/" + specialSlug + ".png"
         : item.imageFile
         ? ITEM_IMAGE_BASE + item.imageFile
         : iconSlug ? ITEM_IMAGE_BASE + iconSlug + ".png" : "";
-    const retrySource = "";
+    const retrySource = item.id === "retribution" ? "" : "";
     const iconMarkup = iconSource
       ? `<img class="item-image" src="${escapeHTML(iconSource)}" data-retry="${escapeHTML(retrySource)}" data-fallback="${escapeHTML(missingIcon)}" alt="${escapeHTML(item.ru)}" loading="lazy" decoding="async" onerror="if(this.dataset.retry && this.dataset.retry!==this.src){const next=this.dataset.retry;this.dataset.retry='';this.src=next;}else{this.onerror=null;this.outerHTML=this.dataset.fallback}">`
       : missingIcon;
