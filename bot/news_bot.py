@@ -95,6 +95,8 @@ def parse_any_date(value: str) -> datetime | None:
     if not value:
         return None
     value = value.strip()
+    if value.upper().endsWith(" UTC"):
+        value = value[:-4].strip() + "+00:00"
     try:
         dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError:
@@ -287,16 +289,16 @@ def format_draft(article: dict[str, Any]) -> str:
     else:
         date_status = "⚠️ Дата оригинала не подтверждена автоматически"
     return (
-        "📝 ЧЕРНОВИК НОВОСТИ MLBB — ПРОВЕРИТЬ ПЕРЕД ПУБЛИКАЦИЕЙ\\n\\n"
-        f"📰 {title}\\n\\n"
-        f"Источник из ленты: {source}\\n"
-        f"Дата в ленте: {published}\\n"
-        f"Дата на странице: {article_date}\\n"
-        f"Проверка даты: {date_status}\\n"
-        f"Проверка ссылки: {check['verification']}\\n\\n"
-        f"Кратко: {summary}\\n\\n"
-        f"Первоисточник: {original_link}\\n"
-        f"Ссылка RSS для диагностики: {article['link']}\\n\\n"
+        "📝 ЧЕРНОВИК НОВОСТИ MLBB — ПРОВЕРИТЬ ПЕРЕД ПУБЛИКАЦИЕЙ\n\n"
+        f"📰 {title}\n\n"
+        f"Источник из ленты: {source}\n"
+        f"Дата в ленте: {published}\n"
+        f"Дата на странице: {article_date}\n"
+        f"Проверка даты: {date_status}\n"
+        f"Проверка ссылки: {check['verification']}\n\n"
+        f"Кратко: {summary}\n\n"
+        f"Ссылка на страницу: {original_link}\n"
+        f"Ссылка RSS для диагностики: {article['link']}\n\n"
         "Проверь содержание и дату перед публикацией. Этот бот не публикует "
         "материал в публичный канал автоматически."
     )
