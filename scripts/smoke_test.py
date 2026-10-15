@@ -70,16 +70,15 @@ require('href="?page=builds">Сборки и таланты</a>' not in html
 require('href="favicon.svg"' in html, "Main page favicon reference is missing")
 require('id="counterpicks"' not in html and 'href="?page=counterpicks"' not in html,
         "Removed counterpick section must not reappear in the page or navigation")
-require("styles.css?v=" in (ROOT / "404.html").read_text(encoding="utf-8"),
+not_found_page = (ROOT / "404.html").read_text(encoding="utf-8")
+require("styles.css?v=" in not_found_page,
         "404 page must load a versioned main stylesheet")
-require('href="/Grim-gg-/favicon.svg"' in (ROOT / "404.html").read_text(encoding="utf-8"),
-        "404 page must use the correct GitHub Pages favicon path")
-require('url=/Grim-gg-/' in (ROOT / "404.html").read_text(encoding="utf-8"),
-        "404 page must redirect to the correct GitHub Pages project path")
-require('window.location.replace("/Grim-gg-/")' in (ROOT / "404.html").read_text(encoding="utf-8"),
-        "404 JavaScript redirect must use the correct GitHub Pages project path")
-require('href="/Grim-gg-/"' in (ROOT / "404.html").read_text(encoding="utf-8"),
-        "404 fallback link must use the correct GitHub Pages project path")
+require('href="/favicon.svg"' in not_found_page,
+        "404 page must use the root-site favicon path")
+require('href="/"' in not_found_page and "Страница не найдена" in not_found_page,
+        "404 page must explain the missing page and link to the root homepage")
+require("/Grim-gg-/" not in not_found_page and "window.location.replace" not in not_found_page,
+        "Root-site 404 page must not redirect visitors to the old project path")
 for route in ("home", "heroes", "tierlist", "items", "perks", "favorites", "guides", "esports"):
     require(f'href="?page={route}"' in html, f"Main navigation is missing route ?page={route}")
 require('data-open-hero-full="${escapeHTML(hero.name)}"' in script
