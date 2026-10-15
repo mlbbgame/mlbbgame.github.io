@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://mlbbgame.github.io/Grim-gg-/</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://mlbbgame.github.io/Grim-gg-/hero-guide/</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://mlbbgame.github.io/Grim-gg-/combo-guides/</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://mlbbgame.github.io/Grim-gg-/about.html</loc><lastmod>2026-10-15</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://mlbbgame.github.io/Grim-gg-/privacy.html</loc><lastmod>2026-10-15</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://mlbbgame.github.io/Grim-gg-/contact.html</loc><lastmod>2026-10-15</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://mlbbgame.github.io/</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://mlbbgame.github.io/hero-guide/</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mlbbgame.github.io/combo-guides/</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mlbbgame.github.io/about.html</loc><lastmod>2026-10-15</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://mlbbgame.github.io/privacy.html</loc><lastmod>2026-10-15</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://mlbbgame.github.io/contact.html</loc><lastmod>2026-10-15</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>
