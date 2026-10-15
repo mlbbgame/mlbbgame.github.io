@@ -1,6 +1,6 @@
 import { chromium } from "playwright";
 
-const BASE_URL = "https://2002ufepab-debug.github.io/Grim-gg-/";
+const BASE_URL = "https://mlbbgame.github.io/";
 const failures = [];
 const checks = [];
 const check = (name, condition, detail = "") => {
@@ -44,7 +44,7 @@ try {
     });
     if (await page.locator(".home-hub").count() > 0
       && await page.locator("#main-content").getAttribute("data-ui-version") === "grim-mlbb-home-2"
-      && (await page.locator(".brand").first().innerText()).includes("GRIM_MLBB")) {
+      && (await page.locator(".brand").first().innerText()).includes("MLBB GAME")) {
       publishedRevision = true;
       break;
     }
@@ -56,8 +56,8 @@ try {
 
   // Check crawlable static SEO pages by their clean URLs (not only query-string variants).
   for (const [path, heading, canonical] of [
-    ["hero-guide/", "Герои Mobile Legends: роли, линии и тактика", "https://2002ufepab-debug.github.io/Grim-gg-/hero-guide/"],
-    ["combo-guides/", "Комбо и гайды по Mobile Legends", "https://2002ufepab-debug.github.io/Grim-gg-/combo-guides/"]
+    ["hero-guide/", "Герои Mobile Legends: роли, линии и тактика", "https://mlbbgame.github.io/hero-guide/"],
+    ["combo-guides/", "Комбо и гайды по Mobile Legends", "https://mlbbgame.github.io/combo-guides/"]
   ]) {
     const response = await page.goto(BASE_URL + path, { waitUntil: "domcontentloaded", timeout: 60000 });
     check("SEO page returns HTTP 200: " + path, response?.status() === 200,
