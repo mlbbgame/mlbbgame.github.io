@@ -7,6 +7,7 @@ private review chat so a human can verify and publish them.
 from __future__ import annotations
 
 import hashlib
+from html.parser import HTMLParser
 import html
 import json
 import logging
@@ -56,6 +57,111 @@ KEYWORDS = (
 NEWS_GOOGLE = "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
 
 
+class ArticleMetadataParser(HTMLParser):
+    """Extract common metadata without executing page scripts."""
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.meta: dict[str, str] = {}
+        self.canonical = ""
+        self.json_ld: list[str] = []
+        self._in_json_ld = False
+        self._json_parts: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {k.lower(): (v or "") for k, v in attrs}
+        if tag.lower() == "meta":
+            key = values.get("property") or values.get("name") or values.get("itemprop")
+            value = values.get("content", "").strip()
+            if key and value:
+                self.meta[key.lower()] = value
+        elif tag.lower() == "link" and "canonical" in values.get("rel", "").lower().split():
+            self.canonical = values.get("href", "").strip()
+        elif tag.lower() == "script" and "ld+json" in values.get("type", "").lower():
+            self._in_json_ld = True
+            self._json_parts = []
+
+    def handle_data(self, data: str) -> None:
+        if self._in_json_ld:
+            self._json_parts.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() == "script" and self._in_json_ld:
+            self.json_ld.append("".join(self._json_parts))
+            self._in_json_ld = False
+            self._json_parts = []
+
+
+def parse_any_date(value: str) -> datetime | None:
+    if not value:
+        return None
+    value = value.strip()
+    try:
+        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        try:
+            from email.utils import parsedate_to_datetime
+            dt = parsedate_to_datetime(value)
+        except (TypeError, ValueError, OverflowError):
+            return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
+def metadata_from_jsonld(raw_values: list[str]) -> dict[str, str]:
+    found: dict[str, str] = {}
+    def visit(value: Any) -> None:
+        if isinstance(value, dict):
+            for key in ("datePublished", "dateCreated", "headline", "description", "url"):
+                item = value.get(key)
+                if isinstance(item, str) and item.strip() and key not in found:
+                    found[key] = item.strip()
+            for item in value.values():
+                visit(item)
+        elif isinstance(value, list):
+            for item in value:
+                visit(item)
+    for raw in raw_values:
+        try:
+            visit(json.loads(raw))
+        except (json.JSONDecodeError, TypeError):
+            continue
+    return found
+
+
+def inspect_article(article_url: str, feed_summary: str = "") -> dict[str, str]:
+    """Best-effort original URL/date/summary lookup; never treats failure as verification."""
+    result = {"original_url": "", "article_date": "", "summary": "", "verification": "⚠️ Первоисточник не подтверждён"}
+    if not article_url.startswith(("https://", "http://")):
+        return result
+    request = urllib.request.Request(article_url, headers={"User-Agent": "Mozilla/5.0 (compatible; MLBBGameNewsBot/1.0)"})
+    try:
+        with urllib.request.urlopen(request, timeout=12) as response:
+            final_url = response.geturl()
+            content_type = response.headers.get("Content-Type", "")
+            page = response.read(1_500_000).decode("utf-8", errors="replace") if "html" in content_type.lower() or not content_type else ""
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError):
+        return result
+    parser = ArticleMetadataParser()
+    try:
+        parser.feed(page)
+    except Exception:
+        pass
+    ld = metadata_from_jsonld(parser.json_ld)
+    candidates = [parser.canonical, parser.meta.get("og:url", ""), ld.get("url", ""), final_url]
+    original = next((urllib.parse.urljoin(final_url, u) for u in candidates if u and domain_allowed(urllib.parse.urljoin(final_url, u))), "")
+    if original:
+        result["original_url"] = original
+        result["verification"] = "✅ Домен первоисточника найден"
+    date_value = next((parser.meta.get(k, "") for k in ("article:published_time", "datepublished", "date", "pubdate", "parsely-pub-date") if parser.meta.get(k)), "") or ld.get("datePublished", "") or ld.get("dateCreated", "")
+    parsed = parse_any_date(date_value)
+    if parsed:
+        result["article_date"] = parsed.strftime("%Y-%m-%d %H:%M UTC")
+    summary = parser.meta.get("og:description", "") or parser.meta.get("description", "") or ld.get("description", "") or feed_summary
+    result["summary"] = clean_text(summary)[:500]
+    return result
+
+
 def get_text(parent: ET.Element, tag: str) -> str:
     node = parent.find(tag)
     return (node.text or "").strip() if node is not None and node.text else ""
@@ -102,6 +208,7 @@ def fetch_feed(label: str, query: str) -> list[dict[str, Any]]:
         title = clean_text(get_text(item, "title"))
         link = get_text(item, "link")
         pubdate = get_text(item, "pubDate")
+        feed_summary = clean_text(get_text(item, "description"))
         source_node = item.find("source")
         source_name = clean_text(source_node.text or "") if source_node is not None else label
         source_url = source_node.attrib.get("url", "") if source_node is not None else ""
@@ -120,6 +227,7 @@ def fetch_feed(label: str, query: str) -> list[dict[str, Any]]:
             "source": source_name or label,
             "source_url": source_url,
             "published": pubdate,
+            "feed_summary": feed_summary,
             "timestamp": timestamp or time.time(),
         })
     return results
@@ -164,16 +272,32 @@ def telegram_send(text: str) -> None:
 
 def format_draft(article: dict[str, Any]) -> str:
     title = article["title"]
-    link = article["link"]
     source = article["source"]
     published = article.get("published") or "Дата не указана"
+    check = inspect_article(article["link"], article.get("feed_summary", ""))
+    article_date = check["article_date"] or "Не удалось автоматически определить"
+    summary = check["summary"] or "Краткое описание не найдено — проверь статью вручную."
+    original_link = check["original_url"] or article["link"]
+    feed_dt = parse_any_date(published)
+    page_dt = parse_any_date(article_date)
+    if feed_dt and page_dt:
+        date_status = "✅ Даты близки" if abs((feed_dt - page_dt).total_seconds()) <= 36 * 3600 else "⚠️ Даты расходятся — проверь вручную"
+    elif page_dt:
+        date_status = "⚠️ Дата в ленте не распознана"
+    else:
+        date_status = "⚠️ Дата оригинала не подтверждена автоматически"
     return (
-        "📝 ЧЕРНОВИК НОВОСТИ MLBB — ПРОВЕРИТЬ ПЕРЕД ПУБЛИКАЦИЕЙ\n\n"
-        f"📰 {title}\n\n"
-        f"Источник: {source}\n"
-        f"Дата в ленте: {published}\n"
-        f"Ссылка для проверки: {link}\n\n"
-        "Проверь содержание и дату по первоисточнику. Этот бот не публикует "
+        "📝 ЧЕРНОВИК НОВОСТИ MLBB — ПРОВЕРИТЬ ПЕРЕД ПУБЛИКАЦИЕЙ\\n\\n"
+        f"📰 {title}\\n\\n"
+        f"Источник из ленты: {source}\\n"
+        f"Дата в ленте: {published}\\n"
+        f"Дата на странице: {article_date}\\n"
+        f"Проверка даты: {date_status}\\n"
+        f"Проверка ссылки: {check['verification']}\\n\\n"
+        f"Кратко: {summary}\\n\\n"
+        f"Первоисточник: {original_link}\\n"
+        f"Ссылка RSS для диагностики: {article['link']}\\n\\n"
+        "Проверь содержание и дату перед публикацией. Этот бот не публикует "
         "материал в публичный канал автоматически."
     )
 
