@@ -2337,6 +2337,7 @@ async function loadExternalHeroes() {
     favoriteHeroes = new Set([...favoriteHeroes].map(id => remoteIdToFallbackId.get(String(id)) || String(id)));
     safeWrite("grimgg-favorite-heroes", favoriteHeroes);
     heroes = normalized;
+    window.syncComboGuidesWithHeroCatalog?.(heroes);
     heroDataSource = catalogSource;
     if (note) note.textContent = catalogSource === "external"
       ? "Загружен сторонний каталог сообщества. Он неофициальный и может отставать от текущего патча; роли обозначают классы героев, а не рекомендуемые линии."
@@ -2770,6 +2771,7 @@ function init() {
   renderItems();
   renderPerks();
   renderBuilds();
+  window.syncComboGuidesWithHeroCatalog?.(heroes);
   renderComboGuides();
   renderFavorites();
 
