@@ -1,0 +1,2 @@
+# The bot uses Python standard-library modules only.
+# Kept for conventional dependency installation in the workflow.
