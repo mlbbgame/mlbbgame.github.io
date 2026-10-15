@@ -702,9 +702,13 @@ body.modal-open { overflow:hidden; }
 .combo-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; align-items:stretch; }
 .combo-card { min-width:0; padding:17px; background:var(--panel); border:1px solid var(--border); border-radius:9px; }
 .combo-card:hover { border-color:#704052; }
-.combo-card-top { display:flex; align-items:center; justify-content:space-between; gap:8px; }
-.combo-code { color:#ff7b8b; font:10px Orbitron,sans-serif; letter-spacing:1px; }
+.combo-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.combo-code { color:#ff7b8b; font:10px Orbitron,sans-serif; letter-spacing:1px; padding-top:5px; }
+.combo-card-meta { display:flex; flex-direction:column; align-items:flex-end; gap:6px; min-width:0; }
 .combo-difficulty { padding:4px 7px; border:1px solid var(--border); border-radius:4px; font-size:10px; }
+.combo-battle-spell { display:block; max-width:100%; padding:5px 8px; border:1px solid #5b3547; border-radius:5px; background:#21131c; color:#f4d7e1; font-size:10px; line-height:1.45; text-align:right; overflow-wrap:anywhere; }
+.combo-battle-spell strong { color:#ff91a2; }
+@media(max-width:420px) { .combo-card-top { gap:6px; } .combo-battle-spell { max-width:190px; } }
 .difficulty-easy { color:#a8d7b2; background:#17251b; border-color:#31573b; }
 .difficulty-medium { color:#f1cc76; background:#2b2115; border-color:#614a28; }
 .difficulty-hard { color:#ff8a9a; background:#30151d; border-color:#713044; }
