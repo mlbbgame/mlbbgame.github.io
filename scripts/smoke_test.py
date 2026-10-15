@@ -18,11 +18,12 @@ styles = (ROOT / "styles.css").read_text(encoding="utf-8")
 talents_styles = (ROOT / "talents.css").read_text(encoding="utf-8")
 wide_styles = (ROOT / "layout-wide.css").read_text(encoding="utf-8")
 script = (ROOT / "script.js").read_text(encoding="utf-8")
+combo_guides_extra = (ROOT / "combo-guides-extra.js").read_text(encoding="utf-8")
 talents = (ROOT / "talents.js").read_text(encoding="utf-8")
 talent_css = (ROOT / "talents.css").read_text(encoding="utf-8")
 
 # Cache keys intentionally change during fixes; validate versioned asset paths without pinning versions.
-for asset in ("styles.css", "talents.css", "layout-wide.css", "script.js", "talents.js"):
+for asset in ("styles.css", "talents.css", "layout-wide.css", "script.js", "combo-guides-extra.js", "talents.js"):
     require(any(f"{asset}?v=" in line for line in html.splitlines()),
             f"index.html must load {asset} with a versioned cache key")
 
@@ -96,6 +97,15 @@ require('requestedPage === "talents" ? "builds"' in script, "Legacy talent route
 require('builds: "Сборки и таланты"' in script, "Combined workspace title is missing")
 require('id="talentHeroPortrait"' in talents and "heroArtByName" in talents,
         "Talent planner must render the selected hero portrait when the source is available")
+extra_combo_keys = re.findall(r'\{hero:"([^"]+)",key:"([^"]+)",role:"([^"]+)"', combo_guides_extra)
+require(len(extra_combo_keys) >= 40,
+        "Expanded combo guide catalog should include at least 40 additional heroes")
+extra_combo_names = [entry[1].casefold() for entry in extra_combo_keys]
+require(len(extra_combo_names) == len(set(extra_combo_names)),
+        "Expanded combo guide catalog contains duplicate hero keys")
+require('combo-guides-extra.js?v=' in html,
+        "Main page must load the expanded combo guide catalog with a versioned cache key")
+
 require("GrimGGHeroImageUrl" in script and "GrimGGHeroImageUrl" in talents,
         "Talent planner must prefer the shared HD hero image resolver")
 require("fallbackImage:catalogImage" in script and "hero.fallbackImage && hero.fallbackImage !== hero.image" in script,
