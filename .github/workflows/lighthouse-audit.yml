@@ -2,7 +2,7 @@ name: Grim_gg Lighthouse audit
 
 on:
   workflow_run:
-    workflows: ["pages build and deployment"]
+    workflows: ["Deploy static content to Pages"]
     types: [completed]
     branches: [main]
   schedule:
@@ -27,6 +27,6 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
-            https://2002ufepab-debug.github.io/Grim-gg-/
+            https://mlbbgame.github.io/
           uploadArtifacts: true
           temporaryPublicStorage: true
