@@ -1,0 +1,53 @@
+name: MLBB News Review Bot
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mlbb-news-review-bot
+  cancel-in-progress: false
+
+jobs:
+  collect-and-send-drafts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore deduplication state
+        uses: actions/cache/restore@v4
+        with:
+          path: bot/state/seen.json
+          key: mlbb-news-seen-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            mlbb-news-seen-
+
+      - name: Validate Python syntax
+        run: python -m py_compile bot/news_bot.py
+
+      - name: Collect news and send review drafts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          REVIEW_CHAT_ID: ${{ secrets.REVIEW_CHAT_ID }}
+          STATE_FILE: bot/state/seen.json
+          MAX_PER_RUN: "5"
+          MAX_AGE_HOURS: "72"
+        run: python bot/news_bot.py
+
+      - name: Save deduplication state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: bot/state/seen.json
+          key: mlbb-news-seen-${{ github.run_id }}-${{ github.run_attempt }}
