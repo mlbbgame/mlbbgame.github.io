@@ -3,7 +3,7 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 const axePath = require.resolve("axe-core/axe.min.js");
-const BASE_URL = "https://2002ufepab-debug.github.io/Grim-gg-/";
+const BASE_URL = "https://mlbbgame.github.io/";
 const routes = [
   ["home", "#home"],
   ["heroes", "#heroes"],
