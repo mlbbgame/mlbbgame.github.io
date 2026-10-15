@@ -138,7 +138,7 @@
   const localizedComboName = hero => {
     const key = comboKey(hero.name);
     const aliases = typeof HERO_SEARCH_ALIASES !== "undefined" ? HERO_SEARCH_ALIASES[key] : "";
-    return aliases ? aliases.split(/\\s+/)[0] : hero.name;
+    return aliases ? aliases.split(/\s+/)[0] : hero.name;
   };
   window.syncComboGuidesWithHeroCatalog = function (catalog) {
     if (!Array.isArray(catalog)) return;
