@@ -2,7 +2,7 @@ name: GRIM_MLBB accessibility audit
 
 on:
   workflow_run:
-    workflows: ["pages build and deployment"]
+    workflows: ["Deploy static content to Pages"]
     types: [completed]
     branches: [main]
   workflow_dispatch:
