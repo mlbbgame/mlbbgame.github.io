@@ -387,6 +387,39 @@ try:
 except (OSError, json.JSONDecodeError, AttributeError) as exc:
     errors.append(f"Could not validate esports feed: {exc}")
 
+
+# Validate standalone SEO guide pages and their sitemap discovery.
+clint_guide_path = ROOT / "clint-gold-lane" / "index.html"
+require(clint_guide_path.is_file(), "Standalone Clint Gold Lane guide is missing")
+if clint_guide_path.is_file():
+    clint_guide = clint_guide_path.read_text(encoding="utf-8")
+    require('<link rel="canonical" href="https://mlbbgame.github.io/clint-gold-lane/">' in clint_guide,
+            "Clint guide must declare its canonical URL")
+    require("<title>Клинт на Gold Lane: сборка и тактика — MLBB Game</title>" in clint_guide,
+            "Clint guide needs a specific page title")
+    require("усиленная атака" in clint_guide.casefold() and "критический урон" in clint_guide.casefold(),
+            "Clint guide must retain its core practical topics")
+    require('href="../hero-guide/"' in clint_guide and 'href="../combo-guides/"' in clint_guide,
+            "Clint guide must link to related first-party guides")
+    require('href="../privacy.html"' in clint_guide and 'href="../contact.html"' in clint_guide,
+            "Clint guide must retain privacy and contact links")
+    require("href=\"../clint-gold-lane/\"" in (ROOT / "hero-guide" / "index.html").read_text(encoding="utf-8"),
+            "Hero directory must link to the Clint guide")
+    require("href=\"../clint-gold-lane/\"" in (ROOT / "combo-guides" / "index.html").read_text(encoding="utf-8"),
+            "Combo guides must link to the Clint guide")
+
+try:
+    import xml.etree.ElementTree as ET
+    sitemap_root = ET.fromstring((ROOT / "sitemap.xml").read_text(encoding="utf-8"))
+    sitemap_urls = {
+        element.text
+        for element in sitemap_root.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
+    }
+    require("https://mlbbgame.github.io/clint-gold-lane/" in sitemap_urls,
+            "Clint guide must be discoverable through sitemap.xml")
+except (OSError, ET.ParseError) as exc:
+    errors.append(f"Could not validate sitemap.xml: {exc}")
+
 if errors:
     print("GRIM_GG SMOKE TEST: FAILED")
     for error in errors:
