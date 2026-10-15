@@ -95,7 +95,7 @@ def parse_any_date(value: str) -> datetime | None:
     if not value:
         return None
     value = value.strip()
-    if value.upper().endsWith(" UTC"):
+    if value.upper().endswith(" UTC"):
         value = value[:-4].strip() + "+00:00"
     try:
         dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
