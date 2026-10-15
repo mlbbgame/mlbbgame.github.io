@@ -98,6 +98,8 @@ require('builds: "Сборки и таланты"' in script, "Combined workspac
 require('id="talentHeroPortrait"' in talents and "heroArtByName" in talents,
         "Talent planner must render the selected hero portrait when the source is available")
 extra_combo_keys = re.findall(r'\{hero:"([^"]+)",key:"([^"]+)",role:"([^"]+)"', combo_guides_extra)
+require("battleSpellRecommendations" in combo_guides_extra and "Вспышка (Flicker)" in combo_guides_extra,
+        "Combo guides must include battle-spell recommendations")
 require(len(extra_combo_keys) >= 40,
         "Expanded combo guide catalog should include at least 40 additional heroes")
 extra_combo_names = [entry[1].casefold() for entry in extra_combo_keys]
