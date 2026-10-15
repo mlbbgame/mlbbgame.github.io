@@ -397,7 +397,7 @@ if clint_guide_path.is_file():
             "Clint guide must declare its canonical URL")
     require("<title>Клинт на Gold Lane: сборка и тактика — MLBB Game</title>" in clint_guide,
             "Clint guide needs a specific page title")
-    require("Усиленная атака" in clint_guide and "Критический урон" in clint_guide,
+    require("усиленная атака" in clint_guide.casefold() and "критический урон" in clint_guide.casefold(),
             "Clint guide must retain its core practical topics")
     require('href="../hero-guide/"' in clint_guide and 'href="../combo-guides/"' in clint_guide,
             "Clint guide must link to related first-party guides")
