@@ -163,11 +163,14 @@ try {
   await page.locator("#perkGrid").waitFor({ state: "visible", timeout: 20000 });
   await page.locator('#perkFilters [data-perk-category="Roam"]').click();
   await page.waitForTimeout(250);
-  check("Roam blessing has a visible dedicated icon",
-    await page.locator('#perkGrid .item-image-vector[aria-label="Роум-благословение"]').count() > 0
-    && await page.locator('#perkGrid .item-image-vector[aria-label="Роум-благословение"]').isVisible());
-  check("Known spell and Roam perk cards use local vector artwork",
-    await page.locator('#perkGrid .item-image-vector').count() > 0);
+  const roamBlessingIcon = page.locator('#perkGrid .item-image[alt="Роум-благословение"]');
+  check("Roam blessing has a visible dedicated game icon",
+    await roamBlessingIcon.count() > 0
+    && await roamBlessingIcon.isVisible()
+    && Boolean(await roamBlessingIcon.getAttribute("src")));
+  check("Known spell and Roam perk cards render game-icon artwork",
+    await page.locator('#perkGrid .item-image[src]').count() > 0
+    && await page.locator('#perkGrid .item-image[src]').first().isVisible());
   await page.locator('#perkFilters [data-perk-category="Все"]').click();
 
   // Return to hero catalog before role filtering checks.
