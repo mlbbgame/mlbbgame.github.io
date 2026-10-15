@@ -100,6 +100,13 @@ require('id="talentHeroPortrait"' in talents and "heroArtByName" in talents,
 extra_combo_keys = re.findall(r'\{hero:"([^"]+)",key:"([^"]+)",role:"([^"]+)"', combo_guides_extra)
 require("battleSpellRecommendations" in combo_guides_extra and "Вспышка (Flicker)" in combo_guides_extra,
         "Combo guides must include battle-spell recommendations")
+require("syncComboGuidesWithHeroCatalog" in combo_guides_extra and "generatedGuideTemplates" in combo_guides_extra,
+        "Combo guides must generate a starter guide for every hero in the loaded catalog")
+hero_catalog = json.loads((ROOT / "data" / "hero-catalog.json").read_text(encoding="utf-8"))
+require(len(hero_catalog) >= 120,
+        "Local hero catalog should contain the complete community roster for offline combo guide coverage")
+require("syncComboGuidesWithHeroCatalog?.(heroes)" in script,
+        "Combo guide generation must run for fallback and externally loaded hero catalogs")
 require(len(extra_combo_keys) >= 40,
         "Expanded combo guide catalog should include at least 40 additional heroes")
 extra_combo_names = [entry[1].casefold() for entry in extra_combo_keys]
