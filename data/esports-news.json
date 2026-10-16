@@ -1,8 +1,14 @@
 {
   "source": "MOONTON Games official news",
   "sourceUrl": "https://en.moonton.com/news/index.html",
-  "updatedAt": "2026-10-14T12:27:29Z",
+  "updatedAt": "2026-10-16T08:50:20Z",
   "articles": [
+    {
+      "title": "Mobile Legends: Bang Bang celebrates 10th anniversary across 10 countries as it charts the future of its global journey",
+      "description": "Mobile Legends: Bang Bang (MLBB) marked its 10th anniversary with simultaneous celebrations across 10 countries from 9 to 11 October, drawing tens of thousands of fans to events spanning Asia, Europe, and Latin America. Held under the theme \"ALL IN MLBB\", the celebrations brought MLBB's heroes, communities, and culture to life, marking a decade of growth shaped by its players.",
+      "published": "2026-10-16",
+      "url": "https://en.moonton.com/news/383.html"
+    },
     {
       "title": "Mobile Legends: Bang Bang celebrates 10 years on Istanbul's Bosphorus Strait, bridging East and West ahead of M8 World Championship",
       "description": "Mobile Legends: Bang Bang (MLBB) celebrated its 10th anniversary on Istanbul's Bosphorus this past weekend, bringing together hundreds of players and creators from across Türkiye. The celebration marked a decade of growth for one of the world's most popular mobile games, while setting the stage for the M8 World Championship (M8) in January 2027. The tournament will be the first M Series held in Europe.",
@@ -68,12 +74,6 @@
       "description": "Mobile Legends: Bang Bang (MLBB) today launches ALL IN MLBB, its global 10th Anniversary campaign honouring the players and communities that have shaped its growth and globalisation. The campaign will unfold through anniversary activities, rewards, and the MLBB Birthday Party, bringing players together offline with the game's developers.",
       "published": "2026-09-04",
       "url": "https://en.moonton.com/news/372.html"
-    },
-    {
-      "title": "Nearly one in five Malaysians play Mobile Legends: Bang Bang! MOONTON Games reveals secret sauce ahead of 10th Anniversary",
-      "description": "MOONTON Games announced that Mobile Legends: Bang Bang (MLBB) has surpassed 90 million cumulative downloads in Malaysia. Nearly one in five Malaysians plays MLBB each month, an audience equivalent to close to 90% of the population of Selangor, the country's most populous state.",
-      "published": "2026-09-03",
-      "url": "https://en.moonton.com/news/371.html"
     }
   ]
 }
