@@ -1,8 +1,14 @@
 {
   "source": "MOONTON Games official news",
   "sourceUrl": "https://en.moonton.com/news/index.html",
-  "updatedAt": "2026-10-16T08:50:20Z",
+  "updatedAt": "2026-10-19T07:05:30Z",
   "articles": [
+    {
+      "title": "Thailand takes its next step toward the MCT SEA and the M8 as Leon Esports wins MSL Thailand Season 2",
+      "description": "Mobile Legends: Bang Bang (MLBB) Super League Thailand (MSL TH) Season 2 has concluded, with Leon Esports (LEON) crowned champion before a sold-out crowd at BCC Hall, Central Ladprao, Bangkok, Thailand.",
+      "published": "2026-10-19",
+      "url": "https://en.moonton.com/news/384.html"
+    },
     {
       "title": "Mobile Legends: Bang Bang celebrates 10th anniversary across 10 countries as it charts the future of its global journey",
       "description": "Mobile Legends: Bang Bang (MLBB) marked its 10th anniversary with simultaneous celebrations across 10 countries from 9 to 11 October, drawing tens of thousands of fans to events spanning Asia, Europe, and Latin America. Held under the theme \"ALL IN MLBB\", the celebrations brought MLBB's heroes, communities, and culture to life, marking a decade of growth shaped by its players.",
@@ -68,12 +74,6 @@
       "description": "The Mobile Legends: Bang Bang (MLBB) Super League Thailand (MSL TH) returns for Season 2 from 11 September to 18 October 2026, marking a new chapter in Thailand's growing role within the global MLBB ecosystem.",
       "published": "2026-09-09",
       "url": "https://en.moonton.com/news/373.html"
-    },
-    {
-      "title": "Mobile Legends: Bang Bang goes ALL IN to celebrate 10 years of growing with its players",
-      "description": "Mobile Legends: Bang Bang (MLBB) today launches ALL IN MLBB, its global 10th Anniversary campaign honouring the players and communities that have shaped its growth and globalisation. The campaign will unfold through anniversary activities, rewards, and the MLBB Birthday Party, bringing players together offline with the game's developers.",
-      "published": "2026-09-04",
-      "url": "https://en.moonton.com/news/372.html"
     }
   ]
 }
