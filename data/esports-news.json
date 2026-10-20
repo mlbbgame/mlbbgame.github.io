@@ -1,8 +1,14 @@
 {
   "source": "MOONTON Games official news",
   "sourceUrl": "https://en.moonton.com/news/index.html",
-  "updatedAt": "2026-10-19T07:05:30Z",
+  "updatedAt": "2026-10-20T03:48:47Z",
   "articles": [
+    {
+      "title": "MPL Malaysia Season 18 brings Playoffs fever nationwide—celebrating esports at the heart of Malaysian culture!",
+      "description": "Malaysia's biggest esports showdown is set to return with a nationwide celebration of esports, entertainment, and local traditions as the Mobile Legends: Bang Bang Professional League (MPL) Malaysia Season 18 Playoffs take over Stadium Juara, Kuala Lumpur, from 28 October to 1 November.",
+      "published": "2026-10-20",
+      "url": "https://en.moonton.com/news/385.html"
+    },
     {
       "title": "Thailand takes its next step toward the MCT SEA and the M8 as Leon Esports wins MSL Thailand Season 2",
       "description": "Mobile Legends: Bang Bang (MLBB) Super League Thailand (MSL TH) Season 2 has concluded, with Leon Esports (LEON) crowned champion before a sold-out crowd at BCC Hall, Central Ladprao, Bangkok, Thailand.",
@@ -68,12 +74,6 @@
       "description": "Türkiye's road to the M8 World Championship (M8) enters its final stretch on 12 September! The Mobile Legends: Bang Bang (MLBB) Türkiye Championship (MTC) returns for Season 8, bringing the country's top teams together ahead of the M Series' historic arrival in Istanbul.",
       "published": "2026-09-10",
       "url": "https://en.moonton.com/news/374.html"
-    },
-    {
-      "title": "Thailand's time to rise continues: MSL TH Season 2 opens the road to the MCT SEA and the M8",
-      "description": "The Mobile Legends: Bang Bang (MLBB) Super League Thailand (MSL TH) returns for Season 2 from 11 September to 18 October 2026, marking a new chapter in Thailand's growing role within the global MLBB ecosystem.",
-      "published": "2026-09-09",
-      "url": "https://en.moonton.com/news/373.html"
     }
   ]
 }
