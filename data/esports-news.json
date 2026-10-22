@@ -1,8 +1,14 @@
 {
   "source": "MOONTON Games official news",
   "sourceUrl": "https://en.moonton.com/news/index.html",
-  "updatedAt": "2026-10-21T05:46:37Z",
+  "updatedAt": "2026-10-22T03:49:30Z",
   "articles": [
+    {
+      "title": "MPL Indonesia joins hands with Make-A-Wish® Indonesia to give back to local communities",
+      "description": "Mobile Legends: Bang Bang Professional League (MPL) Indonesia, through MOONTON Cares, collaborated with Make-A-Wish® Indonesia to welcome six children living with critical illnesses to MPL Arena, giving them the opportunity to experience an RRQ vs ONIC match live.",
+      "published": "2026-10-22",
+      "url": "https://en.moonton.com/news/387.html"
+    },
     {
       "title": "Mongolia hosts the MCT EA as East Asia's top MLBB teams take on the world for the M8 World Championship",
       "description": "Mongolia is set to host the Mobile Legends: Bang Bang (MLBB) East Asia Championship Tour (MCT EA) from 29 to 31 October 2026. Six of the region's top teams converge at M Bank Arena in Ulaanbaatar to take on the world for the M8 World Championship (M8).",
@@ -68,12 +74,6 @@
       "description": "Visa, a global leader in digital payments, and MOONTON Games, the international video game developer behind Mobile Legends: Bang Bang (MLBB), today announced a three-year partnership to elevate the M Series experience for fans worldwide. The partnership sees Visa named the Global Payment Partner for the next three editions of the M Series—the M8 World Championship (M8) in 2027 through the M10 World Championship (M10)",
       "published": "2026-09-21",
       "url": "https://en.moonton.com/news/376.html"
-    },
-    {
-      "title": "MLBB Asian Games Main Stage Group Draw revealed as teams begin final road to Aichi-Nagoya",
-      "description": "The Group Draw for the 2026 Asian Games Esports Events: Mobile Legends: Bang Bang (MLBB) has been revealed, setting the final road to medal contention in Aichi-Nagoya, Japan.",
-      "published": "2026-09-17",
-      "url": "https://en.moonton.com/news/375.html"
     }
   ]
 }
