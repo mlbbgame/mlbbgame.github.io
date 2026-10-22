@@ -1,8 +1,14 @@
 {
   "source": "MOONTON Games official news",
   "sourceUrl": "https://en.moonton.com/news/index.html",
-  "updatedAt": "2026-10-22T03:49:30Z",
+  "updatedAt": "2026-10-22T10:48:31Z",
   "articles": [
+    {
+      "title": "M8 World Championship to set sail from Bangkok to Istanbul—tournament format, venue, and ticketing unveiled for historic Europe debut!",
+      "description": "The journey to crown Mobile Legends: Bang Bang's (MLBB) next world champions is set! International video gaming company, MOONTON Games, has unveiled the tournament format, venue, and ticketing details for the M8 World Championship (M8). For the first time, MLBB's flagship international tournament will chart a course across two continents—from Bangkok, Thailand, to Istanbul, Türkiye, for its historic European debut.",
+      "published": "2026-10-22",
+      "url": "https://en.moonton.com/news/388.html"
+    },
     {
       "title": "MPL Indonesia joins hands with Make-A-Wish® Indonesia to give back to local communities",
       "description": "Mobile Legends: Bang Bang Professional League (MPL) Indonesia, through MOONTON Cares, collaborated with Make-A-Wish® Indonesia to welcome six children living with critical illnesses to MPL Arena, giving them the opportunity to experience an RRQ vs ONIC match live.",
@@ -68,12 +74,6 @@
       "description": "The Mobile Legends: Bang Bang (MLBB) Professional League Philippines (MPL PH) Season 18 Playoffs will take centre stage at PhilSports Arena in Pasig City, from 21-25 October 2026. This marks a defining moment for Philippine esports as the country's leading professional mobile esports league brings its biggest matches to one of the nation's most recognised sporting venues.",
       "published": "2026-09-26",
       "url": "https://en.moonton.com/news/377.html"
-    },
-    {
-      "title": "Visa, MOONTON Games extend collaboration with new three-year partnership for Mobile Legends: Bang Bang's M Series–the world's most watched mobile esports tournament",
-      "description": "Visa, a global leader in digital payments, and MOONTON Games, the international video game developer behind Mobile Legends: Bang Bang (MLBB), today announced a three-year partnership to elevate the M Series experience for fans worldwide. The partnership sees Visa named the Global Payment Partner for the next three editions of the M Series—the M8 World Championship (M8) in 2027 through the M10 World Championship (M10)",
-      "published": "2026-09-21",
-      "url": "https://en.moonton.com/news/376.html"
     }
   ]
 }
